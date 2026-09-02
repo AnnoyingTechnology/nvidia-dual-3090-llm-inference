@@ -11,7 +11,7 @@ http://<inference-host>:19622/v1
 The endpoint is intentionally unauthenticated, matching the B70 service, and
 must remain restricted to trusted networks. The current server is a manually
 launched validation process; no persistent vLLM systemd unit has been installed
-yet. The OpenAI-compatible model ID is `qwen3.8-27b`.
+yet. The OpenAI-compatible model ID is `qwen3.8-27b-abliterated`.
 
 ## Start the selected profile
 
@@ -20,16 +20,17 @@ Run on the inference host as the service account:
 ```bash
 cd /home/ai/qwen-serving
 CUDA_VISIBLE_DEVICES=1,2 \
-MODEL=/home/ai/qwen-serving/models/Qwen3.8-27B-W4A16-AutoRound-fast \
+MODEL=/home/ai/qwen-serving/models/Huihui-Qwen3.8-27B-Abliterated-W4A16-AutoRound \
 CTX=fast SPEC=dflash2 PREFIX_CACHE=1 VISION=1 VISION_OFFLOAD=1 \
 DFLASH_MAX_LEN=262144 MAX_SEQS=4 \
-HOST=0.0.0.0 PORT=19622 EXTRA_ARGS="--tensor-parallel-size 2" \
+HOST=0.0.0.0 PORT=19622 \
+EXTRA_ARGS="--tensor-parallel-size 2 --served-model-name qwen3.8-27b-abliterated" \
 single-user/start_qwen.sh
 ```
 
-Use the Huihui model path from `profiles/huihui.env` only for the optional
-abliterated profile. All other runtime settings must remain identical for a
-meaningful A/B.
+This is the selected Huihui profile from `profiles/huihui.env`. The stock path
+in `profiles/stock.env` is the rollback. Keep all other runtime settings
+identical for a meaningful A/B.
 
 ## Validate
 

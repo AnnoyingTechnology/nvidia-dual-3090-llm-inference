@@ -10,6 +10,7 @@ import zlib
 
 
 BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
+MODEL = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 
 
 def png_chunk(kind, payload):
@@ -26,7 +27,7 @@ png += png_chunk(b"IEND", b"")
 image_url = "data:image/png;base64," + base64.b64encode(png).decode()
 
 payload = {
-    "model": "qwen3.8-27b",
+    "model": MODEL,
     "messages": [
         {
             "role": "user",

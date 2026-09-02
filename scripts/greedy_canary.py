@@ -7,6 +7,7 @@ import urllib.request
 
 
 PORT = os.environ.get("PORT", "19622")
+MODEL = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
 PROMPTS = [
     "Explain why a mutex does not by itself prevent deadlock. Give three concise points.",
@@ -19,7 +20,7 @@ PROMPTS = [
 
 def ask(prompt: str) -> str:
     body = {
-        "model": "qwen3.8-27b",
+        "model": MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": 256,
         "temperature": 0,

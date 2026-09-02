@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "scope": "GPU board telemetry only; excludes CPU, RAM and PSU losses",
+  "gpu_ids": [
+    1,
+    2
+  ],
+  "original_power_caps_w": [
+    225.0,
+    225.0
+  ],
+  "requested_caps_w": [
+    225
+  ],
+  "prompt_target_tokens": 512,
+  "output_target_tokens": 512,
+  "results": [
+    {
+      "summary": {
+        "power_cap_w_per_gpu": 225,
+        "repetitions": 3,
+        "ttft_s_median": 0.37738174100013566,
+        "decode_s_median": 3.717569053000261,
+        "total_s_median": 4.0952015459988615,
+        "prefill_tokens_per_s_median": 1497.1577546455721,
+        "decode_tokens_per_s_median": 137.45541581469692,
+        "total_gpu_energy_j_median": 1764.8953861180864,
+        "prefill_gpu_energy_j_median": 139.44276596950593,
+        "decode_gpu_energy_j_median": 1626.9995806770692,
+        "prefill_tokens_per_gpu_j_median": 4.051841600184244,
+        "decode_tokens_per_gpu_j_median": 0.3140750655801334,
+        "average_prefill_gpu_power_w_median": 365.10386238759514,
+        "average_decode_gpu_power_w_median": 437.6386269643078,
+        "peak_total_gpu_power_w_median": 450.5,
+        "max_temperature_c_median": 54.0,
+        "median_sm_clock_mhz_median": 1755.0,
+        "median_mem_clock_mhz_median": 9501.0,
+        "all_outputs_identical": true
+      },
+      "runs": [
+        {
+          "prompt_tokens": 565,
+          "cached_prompt_tokens": 0,
+          "uncached_prompt_tokens": 565,
+          "completion_tokens": 512,
+          "finish_reason": "length",
+          "ttft_s": 1.4809105590011313,
+          "decode_s": 4.243443653998838,
+          "total_s": 5.7244383090001065,
+          "prefill_tokens_per_s": 381.52202816427376,
+          "decode_tokens_per_s": 120.42106403803798,
+          "total_gpu_energy_j": 1952.65615433985,
+          "prefill_gpu_energy_j": 226.2454793171328,
+          "decode_gpu_energy_j": 1726.3728578924156,
+          "prefill_tokens_per_gpu_j": 2.4972874671587504,
+          "decode_tokens_per_gpu_j": 0.29599631253693204,
+          "average_prefill_gpu_power_w": 152.77457368508098,
+          "average_decode_gpu_power_w": 406.8329872285582,
+          "peak_total_gpu_power_w": 450.5,
+          "max_temperature_c": 53.0,
+          "median_sm_clock_mhz": 1770.0,
+          "median_mem_clock_mhz": 9501.0,
+          "output_sha256": "54d5400ddc2d43de25efcea37d25accefbae71449b5c19b33a6bca250882fa10",
+          "sample_count": 46,
+          "repetition": 1
+        },
+        {
+          "prompt_tokens": 565,
+          "cached_prompt_tokens": 0,
+          "uncached_prompt_tokens": 565,
+          "completion_tokens": 512,
+          "finish_reason": "length",
+          "ttft_s": 0.3770705290007754,
+          "decode_s": 3.687772497998594,
+          "total_s": 4.065030996000132,
+          "prefill_tokens_per_s": 1498.393421244645,
+          "decode_tokens_per_s": 138.56603146678026,
+          "total_gpu_energy_j": 1753.4387626471882,
+          "prefill_gpu_energy_j": 139.44276596950593,
+          "decode_gpu_energy_j": 1613.9116925808403,
+          "prefill_tokens_per_gpu_j": 4.051841600184244,
+          "decode_tokens_per_gpu_j": 0.31662203226426167,
+          "average_prefill_gpu_power_w": 369.80552773250326,
+          "average_decode_gpu_power_w": 437.6386269643078,
+          "peak_total_gpu_power_w": 449.21000000000004,
+          "max_temperature_c": 54.0,
+          "median_sm_clock_mhz": 1755.0,
+          "median_mem_clock_mhz": 9501.0,
+          "output_sha256": "54d5400ddc2d43de25efcea37d25accefbae71449b5c19b33a6bca250882fa10",
+          "sample_count": 33,
+          "repetition": 2
+        },
+        {
+          "prompt_tokens": 565,
+          "cached_prompt_tokens": 0,
+          "uncached_prompt_tokens": 565,
+          "completion_tokens": 512,
+          "finish_reason": "length",
+          "ttft_s": 0.37738174100013566,
+          "decode_s": 3.717569053000261,
+          "total_s": 4.0952015459988615,
+          "prefill_tokens_per_s": 1497.1577546455721,
+          "decode_tokens_per_s": 137.45541581469692,
+          "total_gpu_energy_j": 1764.8953861180864,
+          "prefill_gpu_energy_j": 137.7835312337046,
+          "decode_gpu_energy_j": 1626.9995806770692,
+          "prefill_tokens_per_gpu_j": 4.100635213374396,
+          "decode_tokens_per_gpu_j": 0.3140750655801334,
+          "average_prefill_gpu_power_w": 365.10386238759514,
+          "average_decode_gpu_power_w": 437.65147532740525,
+          "peak_total_gpu_power_w": 453.49,
+          "max_temperature_c": 55.0,
+          "median_sm_clock_mhz": 1755.0,
+          "median_mem_clock_mhz": 9501.0,
+          "output_sha256": "54d5400ddc2d43de25efcea37d25accefbae71449b5c19b33a6bca250882fa10",
+          "sample_count": 33,
+          "repetition": 3
+        }
+      ]
+    }
+  ]
+}

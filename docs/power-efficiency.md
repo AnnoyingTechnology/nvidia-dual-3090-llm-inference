@@ -2,7 +2,8 @@
 
 ## Scope
 
-The campaign integrates NVIDIA board-power telemetry for physical GPUs 1 and 2.
+This campaign used the stock optimized target and integrates NVIDIA board-power
+telemetry for physical GPUs 1 and 2.
 It excludes CPU, RAM, storage, PSU losses and the unused third GPU, so the unit
 is output tokens per GPU-board joule, not whole-system tokens per joule.
 
@@ -56,6 +57,8 @@ about 6% lower efficiency.
   little throughput.
 
 The persistent systemd policy is set to 225 W on the two inference cards and
-200 W on the excluded x8 card. There is no reason to implement dynamic
-per-phase caps: prefix caching already makes expensive prefill uncommon, and
-the added control plane would be disproportionate.
+200 W on the excluded x8 card. This is the approved interim cap for Huihui. A
+separate final-target sweep remains pending because its output and speculative
+acceptance differ from stock; decode and prefill must be measured independently.
+Dynamic per-phase caps are not justified unless that sweep finds materially
+different knees.

@@ -14,17 +14,32 @@ approximately 4K-token prefixes and 512 generated tokens.
 | Speculation off | 2 | 69.1 |
 | MTP4 | 2 | 154.8 |
 | DFlash2 k=7, stripped 65K/cache-off | 2 | 169.9 |
-| DFlash2 k=7, 262K/cache-on candidate | 2 | 163.2 |
-| Huihui candidate, same runtime | 2 | 167.2 |
+| Stock DFlash2 k=7, 262K/cache-on baseline | 2 | 163.2 |
+| **Selected Huihui, same runtime** | 2 | **167.2** |
 
 The 262K/cache-on profile is selected. Its roughly 4% short-prompt cost versus
 the stripped benchmark profile buys the native context and mandatory cache
 contract.
 
-| Distinct 4K streams | Per-stream tok/s | Decode aggregate tok/s | Preemptions |
-|---:|---:|---:|---:|
-| 2 | 103.5 | 241.8 | 0 |
-| 4 | 57.6 | 309.8 | 0 |
+The fixed 225 W p565/g512 power fixture exposes a workload-dependent reversal:
+
+| Target and speculator | Decode tok/s |
+|---|---:|
+| Stock, DFlash2 k=7 | **180.3** |
+| Huihui, DFlash2 k=7 | **142.5** |
+| Huihui, native MTP4 | **137.5** |
+
+DFlash2 is still the faster Huihui path and remains selected. The Huihui and
+stock outputs differ, and speculative modes have shown sparse greedy hash drift,
+so this is a real workload observation rather than a target-kernel-only A/B.
+It is a performance caveat, not evidence of a quality regression. The planned
+Huihui power sweep must measure decode and prefill separately.
+
+| Target | Distinct 4K streams | Per-stream tok/s | Decode aggregate tok/s | Preemptions |
+|---|---:|---:|---:|---:|
+| Stock | 2 | 103.5 | 241.8 | 0 |
+| Huihui | 2 | 112.1 | 269.7 | 0 |
+| Stock | 4 | 57.6 | 309.8 | 0 |
 
 Four users are viable, but the intended priority remains one user at maximum
 speed. Two users are the best compromise when latency matters.
@@ -50,9 +65,16 @@ penalties and a 20K prompt. Huihui also passed 12/12.
 | Huihui abliterated W4A16 | 10.769 | 10.934 | 3.156 | 8.1589 | 95.5% |
 
 Huihui's aggregate perplexity is 0.29% worse and it misses one additional
-GSM8K item out of 200. The difference is small, but it is a measured regression;
-therefore it is optional rather than the default under a strict no-regression
-rule.
+GSM8K item out of 200. The 0.5-point GSM8K delta is inside sampling noise at
+this sample size. It passed the functional, tool and cache gates and was 2.5%
+faster, so it is the selected abliterated target; stock remains the rollback.
+
+Other public abliterated Qwen3.8-27B families were screened before promotion.
+Published results for OBLITERATUS V3, orcarouter, Jonathan/twolven, windowsxp
+and hotdogs all contain larger capability losses on at least one reported
+benchmark. Junafinity publishes no independent capability benchmark and no
+ready equivalent Ampere W4A16 target. None provided a stronger zero-regression,
+zero-throughput-loss candidate worth a full local qualification campaign.
 
 These are bounded regression gates, not proof of general equivalence. Rerun the
 same fixtures after model, vLLM, kernel, KV dtype, speculation or cache changes.

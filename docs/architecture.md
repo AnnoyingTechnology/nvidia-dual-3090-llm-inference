@@ -20,9 +20,9 @@ x16 cards is faster: non-speculative decode rose from 34.4 tok/s on one card to
 - vLLM: `0.27.1+cu129`
 - PyTorch: `2.13+cu129`
 - Driver: `550.163.01`
-- Target source revision: `1f05c441c4e64ae0549de44fa9ea5a6d43610314`
+- Stock comparison revision: `1f05c441c4e64ae0549de44fa9ea5a6d43610314`
 - DFlash2 W4A16 revision: `4d30ec736ffc6b8688dc2ae2b502d9b48bdec279`
-- Huihui candidate revision: `c20530baefe3e77ccfc6891c2b50cce7ea28bf1e`
+- Selected Huihui W4A16 revision: `c20530baefe3e77ccfc6891c2b50cce7ea28bf1e`
 
 The target and DFlash2 drafter are W4A16 `compressed-tensors` checkpoints. The
 optimized target also quantizes the large untied embedding/lm_head and MTP path,
@@ -44,7 +44,7 @@ The selected profile enables one image per prompt, capped at 2,097,152 pixels
 
 On 24 GiB cards the approximately 0.85 GiB vision tower is CPU-offloaded and
 copied module-by-module for image encoding. This preserves the measured
-360,791-token KV pool and avoids a startup OOM during CUDA graph capture. The
+366,072-token final-launch KV pool and avoids a startup OOM during CUDA graph capture. The
 trade-off is additional image-encoding latency over a resident tower; it does
 not change the text model weights, KV dtype or decode path. A generated image
 with a red left half and blue right half was processed through the live API and

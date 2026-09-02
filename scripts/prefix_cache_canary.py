@@ -7,12 +7,13 @@ import urllib.request
 
 
 PORT = os.environ.get("PORT", "19622")
+MODEL = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
 
 
 def ask(messages, max_tokens=32):
     body = {
-        "model": "qwen3.8-27b",
+        "model": MODEL,
         "messages": messages,
         "max_tokens": max_tokens,
         "temperature": 0,

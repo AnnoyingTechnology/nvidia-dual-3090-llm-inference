@@ -16,6 +16,7 @@ import uuid
 
 GPU_IDS = (1, 2)
 NVIDIA_SMI = "/usr/bin/nvidia-smi"
+MODEL = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 FILLER = (
     "The RTX 3090 has 24 GB of GDDR6X and 82 streaming multiprocessors. "
     "Memory bandwidth is 936 GB/s, which is what decode is bound by. "
@@ -129,7 +130,7 @@ def make_prompt(target_tokens):
 
 def run_request(api, prompt, output_tokens, sampler):
     payload = {
-        "model": "qwen3.8-27b",
+        "model": MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": output_tokens,
         "temperature": 0,

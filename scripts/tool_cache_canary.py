@@ -11,6 +11,7 @@ import urllib.request
 
 
 BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
+MODEL = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 
 
 def post(payload):
@@ -57,7 +58,7 @@ tool = {
 }
 
 first_payload = {
-    "model": "qwen3.8-27b",
+    "model": MODEL,
     "messages": [
         {
             "role": "system",

@@ -9,6 +9,7 @@ import urllib.request
 
 
 api = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
+model = os.environ.get("QWEN_MODEL", "qwen3.8-27b-abliterated")
 target_tokens = int(os.environ.get("TARGET_TOKENS", "100000"))
 depth = float(os.environ.get("NEEDLE_DEPTH", "0.9"))
 needle = "ZXCVBNM12345"
@@ -23,7 +24,7 @@ prompt = (
 )
 
 payload = {
-    "model": "qwen3.8-27b",
+    "model": model,
     "messages": [{"role": "user", "content": prompt}],
     "temperature": 0,
     "max_tokens": 64,

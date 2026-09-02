@@ -1,0 +1,5 @@
+[Service]
+ExecStart=
+ExecStart=/usr/bin/nvidia-smi -pl 200
+ExecStart=/usr/bin/nvidia-smi -i GPU-<X16-CARD-1-UUID> -pl 225
+ExecStart=/usr/bin/nvidia-smi -i GPU-<X16-CARD-2-UUID> -pl 225

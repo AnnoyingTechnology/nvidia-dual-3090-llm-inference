@@ -1,0 +1,26 @@
+{
+ "label": "off-gpu1-200w",
+ "ctx_tokens": 512,
+ "out": 512,
+ "shared": false,
+ "rows": [
+  {
+   "n": 1,
+   "per": 34.41548704045063,
+   "agg": 32.77524534712783,
+   "full": true,
+   "decode_agg": 34.39816098965749,
+   "tok_step": NaN,
+   "tok_pass": 1.0,
+   "ms_pass": 29.071321583170405,
+   "ttft": 731.8572819999645,
+   "preempt": 0.0,
+   "kv": 2.1897810218978075,
+   "running": 1.0,
+   "waiting": 0.0,
+   "rates": [
+    34.4
+   ]
+  }
+ ]
+}

@@ -22,7 +22,8 @@ Run on the inference host as the service account:
 cd /home/ai/qwen-serving
 CUDA_VISIBLE_DEVICES=1,2 \
 MODEL=/home/ai/qwen-serving/models/Qwen3.8-27B-W4A16-AutoRound-fast \
-CTX=fast SPEC=dflash2 PREFIX_CACHE=1 DFLASH_MAX_LEN=262144 MAX_SEQS=4 \
+CTX=fast SPEC=dflash2 PREFIX_CACHE=1 VISION=1 VISION_OFFLOAD=1 \
+DFLASH_MAX_LEN=262144 MAX_SEQS=4 \
 HOST=0.0.0.0 PORT=18020 EXTRA_ARGS="--tensor-parallel-size 2" \
 single-user/start_qwen.sh
 ```
@@ -48,6 +49,7 @@ Acceptance requires:
 - correct parsed tool call and exact tool-result answer;
 - nonzero `cached_tokens` on the append-only follow-up;
 - exact cold/warm needle retrieval;
+- exact image interpretation through `scripts/vision_canary.py`;
 - no material single-stream or 2-user throughput regression.
 
 ## Prefix-cache behavior

@@ -34,6 +34,22 @@ and about 360K aggregate token capacity. This is sufficient for one request at
 the native 262,144-token limit plus margin, or several shorter requests. It is
 not a promise that four independent maximum-length requests can coexist.
 
+## Vision
+
+The optimized target retains the complete Qwen vision path: its checkpoint
+index contains 333 vision weights, including patch embedding, 27 transformer
+blocks and the merger/projector into the 5,120-wide language representation.
+The selected profile enables one image per prompt, capped at 2,097,152 pixels
+(2,048 image tokens).
+
+On 24 GiB cards the approximately 0.85 GiB vision tower is CPU-offloaded and
+copied module-by-module for image encoding. This preserves the measured
+360,791-token KV pool and avoids a startup OOM during CUDA graph capture. The
+trade-off is additional image-encoding latency over a resident tower; it does
+not change the text model weights, KV dtype or decode path. A generated image
+with a red left half and blue right half was processed through the live API and
+returned exactly `RED, BLUE`.
+
 ## Cache contract
 
 The server uses automatic prefix caching with the hybrid Mamba cache in `align`

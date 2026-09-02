@@ -6,9 +6,7 @@ import os
 import urllib.request
 
 
-PORT = os.environ.get("PORT", "18020")
-KEY_PATH = os.environ.get("KEY_PATH", "/home/ai/qwen-serving/api_key.txt")
-KEY = open(KEY_PATH, encoding="utf-8").read().strip()
+PORT = os.environ.get("PORT", "19622")
 URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
 PROMPTS = [
     "Explain why a mutex does not by itself prevent deadlock. Give three concise points.",
@@ -30,10 +28,7 @@ def ask(prompt: str) -> str:
     req = urllib.request.Request(
         URL,
         data=json.dumps(body).encode(),
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + KEY,
-        },
+        headers={"Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=600) as response:
         return json.load(response)["choices"][0]["message"]["content"]

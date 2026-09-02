@@ -6,9 +6,7 @@ import time
 import urllib.request
 
 
-PORT = os.environ.get("PORT", "18020")
-KEY_PATH = os.environ.get("KEY_PATH", "/home/ai/qwen-serving/api_key.txt")
-KEY = open(KEY_PATH, encoding="utf-8").read().strip()
+PORT = os.environ.get("PORT", "19622")
 URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
 
 
@@ -23,10 +21,7 @@ def ask(messages, max_tokens=32):
     request = urllib.request.Request(
         URL,
         data=json.dumps(body).encode(),
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + KEY,
-        },
+        headers={"Content-Type": "application/json"},
     )
     started = time.perf_counter()
     with urllib.request.urlopen(request, timeout=1200) as response:

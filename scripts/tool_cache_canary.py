@@ -10,22 +10,14 @@ import urllib.error
 import urllib.request
 
 
-BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:18020/v1")
-API_KEY_FILE = os.environ.get(
-    "QWEN_API_KEY_FILE", "/home/ai/qwen-serving/api_key.txt"
-)
+BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
 
 
 def post(payload):
-    with open(API_KEY_FILE, encoding="utf-8") as handle:
-        api_key = handle.read().strip()
     request = urllib.request.Request(
         f"{BASE_URL}/chat/completions",
         data=json.dumps(payload).encode(),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
+        headers={"Content-Type": "application/json"},
     )
     started = time.monotonic()
     try:

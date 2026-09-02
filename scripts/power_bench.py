@@ -127,7 +127,7 @@ def make_prompt(target_tokens):
     )
 
 
-def run_request(api, api_key, prompt, output_tokens, sampler):
+def run_request(api, prompt, output_tokens, sampler):
     payload = {
         "model": "qwen3.8-27b",
         "messages": [{"role": "user", "content": prompt}],
@@ -142,10 +142,7 @@ def run_request(api, api_key, prompt, output_tokens, sampler):
     request = urllib.request.Request(
         api + "/chat/completions",
         data=json.dumps(payload).encode(),
-        headers={
-            "Authorization": "Bearer " + api_key,
-            "Content-Type": "application/json",
-        },
+        headers={"Content-Type": "application/json"},
     )
     started = time.monotonic()
     first = None
@@ -259,8 +256,7 @@ def main():
     parser.add_argument("--reps", type=int, default=3)
     parser.add_argument("--prompt-tokens", type=int, default=512)
     parser.add_argument("--output-tokens", type=int, default=512)
-    parser.add_argument("--api", default="http://127.0.0.1:18020/v1")
-    parser.add_argument("--key-file", default="/home/ai/qwen-serving/api_key.txt")
+    parser.add_argument("--api", default="http://127.0.0.1:19622/v1")
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
@@ -272,8 +268,6 @@ def main():
             if not row[0] <= cap <= row[1]:
                 raise SystemExit(f"cap {cap} outside supported range {row[0]}..{row[1]}")
 
-    with open(args.key_file, encoding="utf-8") as handle:
-        api_key = handle.read().strip()
     prompt = make_prompt(args.prompt_tokens)
     campaign = {
         "schema": 1,
@@ -295,9 +289,7 @@ def main():
             time.sleep(2)
             rows = []
             for repetition in range(1, args.reps + 1):
-                row = run_request(
-                    args.api, api_key, prompt, args.output_tokens, sampler
-                )
+                row = run_request(args.api, prompt, args.output_tokens, sampler)
                 row["repetition"] = repetition
                 rows.append(row)
                 print(json.dumps({"cap_w": cap, **row}), flush=True)

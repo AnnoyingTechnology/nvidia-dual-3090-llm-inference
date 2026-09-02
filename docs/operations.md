@@ -5,14 +5,13 @@
 The validated service listens on the inference host's LAN address:
 
 ```text
-http://<inference-host>:18020/v1
+http://<inference-host>:19622/v1
 ```
 
-The API key is stored at `/home/ai/qwen-serving/api_key.txt` with mode 0600.
-Do not copy it into this repository, a shell history or logs. The current server
-is a manually launched validation process; no persistent vLLM systemd unit has
-been installed yet. The OpenAI-compatible model ID is `qwen3.8-27b`. Requests
-without the bearer token are rejected with HTTP 401.
+The endpoint is intentionally unauthenticated, matching the B70 service, and
+must remain restricted to trusted networks. The current server is a manually
+launched validation process; no persistent vLLM systemd unit has been installed
+yet. The OpenAI-compatible model ID is `qwen3.8-27b`.
 
 ## Start the selected profile
 
@@ -24,7 +23,7 @@ CUDA_VISIBLE_DEVICES=1,2 \
 MODEL=/home/ai/qwen-serving/models/Qwen3.8-27B-W4A16-AutoRound-fast \
 CTX=fast SPEC=dflash2 PREFIX_CACHE=1 VISION=1 VISION_OFFLOAD=1 \
 DFLASH_MAX_LEN=262144 MAX_SEQS=4 \
-HOST=0.0.0.0 PORT=18020 EXTRA_ARGS="--tensor-parallel-size 2" \
+HOST=0.0.0.0 PORT=19622 EXTRA_ARGS="--tensor-parallel-size 2" \
 single-user/start_qwen.sh
 ```
 

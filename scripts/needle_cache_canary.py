@@ -8,11 +8,7 @@ import time
 import urllib.request
 
 
-api = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:18020/v1")
-key_file = os.environ.get("QWEN_API_KEY_FILE", "/home/ai/qwen-serving/api_key.txt")
-with open(key_file, encoding="utf-8") as handle:
-    key = handle.read().strip()
-
+api = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
 target_tokens = int(os.environ.get("TARGET_TOKENS", "100000"))
 depth = float(os.environ.get("NEEDLE_DEPTH", "0.9"))
 needle = "ZXCVBNM12345"
@@ -40,10 +36,7 @@ def run():
     request = urllib.request.Request(
         api + "/chat/completions",
         data=json.dumps(payload).encode(),
-        headers={
-            "Authorization": "Bearer " + key,
-            "Content-Type": "application/json",
-        },
+        headers={"Content-Type": "application/json"},
     )
     started = time.monotonic()
     with urllib.request.urlopen(request, timeout=1800) as response:

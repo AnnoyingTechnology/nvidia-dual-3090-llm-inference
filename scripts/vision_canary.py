@@ -9,10 +9,7 @@ import urllib.request
 import zlib
 
 
-BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:18020/v1")
-API_KEY_FILE = os.environ.get(
-    "QWEN_API_KEY_FILE", "/home/ai/qwen-serving/api_key.txt"
-)
+BASE_URL = os.environ.get("QWEN_BASE_URL", "http://127.0.0.1:19622/v1")
 
 
 def png_chunk(kind, payload):
@@ -27,9 +24,6 @@ png += png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
 png += png_chunk(b"IDAT", zlib.compress(row * height))
 png += png_chunk(b"IEND", b"")
 image_url = "data:image/png;base64," + base64.b64encode(png).decode()
-
-with open(API_KEY_FILE, encoding="utf-8") as handle:
-    api_key = handle.read().strip()
 
 payload = {
     "model": "qwen3.8-27b",
@@ -56,10 +50,7 @@ payload = {
 request = urllib.request.Request(
     BASE_URL + "/chat/completions",
     data=json.dumps(payload).encode(),
-    headers={
-        "Authorization": "Bearer " + api_key,
-        "Content-Type": "application/json",
-    },
+    headers={"Content-Type": "application/json"},
 )
 with urllib.request.urlopen(request, timeout=120) as response:
     result = json.load(response)

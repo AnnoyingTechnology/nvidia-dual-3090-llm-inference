@@ -93,6 +93,15 @@ rose from 34.4 tok/s on one card to 69.1 tok/s on two. The stripped
 accepts about a 4% short-prompt cost to retain native context and mandatory
 prefix reuse. No credible large lossless gain remains above the 225 W point.
 
+A three-GPU campaign also found no worthwhile production path. TP=3 is invalid
+for this model, PP=3 loses required speculation, and DP=3 gains aggregate
+throughput by making each request and its cache behavior substantially worse.
+The only bounded alternative, DFlash2 k=3, traded 6.1% of single-stream
+throughput and 10.8% TPOT for a 5.8% four-request gain at unchanged power. K7
+therefore remains selected. See
+[Three-GPU evaluation](docs/three-gpu-evaluation.md) for every tested layout,
+backend and power result, plus the hardware conditions for revisiting the work.
+
 ## Optimization ladder
 
 | Accepted decision | Measured contribution | Integrity boundary |
@@ -154,6 +163,10 @@ and returned the exact requested canary.
    mainly consume RAM and the excluded x8 card's VRAM, so this is cleanup rather
    than a large inference-speed gain.
 5. Evaluate Qwen3.8-Flash-Next later as a separate model/quality campaign.
+
+The current three-GPU optimization project is closed. Revisit it only with a
+board providing x16 lanes to all three GPUs or PCIe Gen 4 bandwidth, together
+with either a TP=3-compatible model/runtime or speculative PP=3 support.
 
 Dynamic per-phase caps, INT8 activations and lower-bit KV remain out of scope
 unless the final Huihui power sweep exposes a material reason to revisit them.

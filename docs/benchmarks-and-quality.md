@@ -44,6 +44,22 @@ Huihui power sweep must measure decode and prefill separately.
 Four users are viable, but the intended priority remains one user at maximum
 speed. Two users are the best compromise when latency matters.
 
+## Three-GPU campaign
+
+The third, x8-attached RTX 3090 did not produce a worthwhile universal endpoint.
+DP=3 improved three-request aggregate decode by 44.7% and aggregate 8K prefill
+by 84.6%, but reduced the corresponding single-request scores by 33.1% and
+31.2% and made cache reuse replica-dependent. PP=3 improved cold prefill but
+cannot retain DFlash speculation. TP=3 is incompatible with the target's 32
+attention heads.
+
+A DFlash block sweep and attention-backend A/B also failed to provide a material
+free gain. K3 delivered +5.8% at C4 for -6.1% C1 throughput and +10.8% C1 TPOT;
+FlashInfer reduced C1 throughput by approximately 33%. Production remains
+TP=2, DFlash2 k=7. Full fixtures, power measurements and the hardware threshold
+for revisiting this work are in
+[Three-GPU evaluation](three-gpu-evaluation.md).
+
 ## Cache and long context
 
 | Fixture | Cold | Warm/follow-up | Reused tokens | Result |

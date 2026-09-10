@@ -62,3 +62,8 @@ separate final-target sweep remains pending because its output and speculative
 acceptance differ from stock; decode and prefill must be measured independently.
 Dynamic per-phase caps are not justified unless that sweep finds materially
 different knees.
+
+The later [three-GPU evaluation](three-gpu-evaluation.md) used a different
+power boundary: it summed all three cards, including roughly 20 W from the
+desktop card. Its only bounded tuning candidate, DFlash2 k=3, measured 359.3 W
+at C4 against 360.1 W for production k=7, so no power penalty was observed.

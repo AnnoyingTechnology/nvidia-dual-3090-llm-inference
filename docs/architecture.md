@@ -8,6 +8,11 @@ slots/buses `02:00.0` and `03:00.0`; both negotiate PCIe 3.0 x16 under load.
 The card at `01:00.0` runs at x8 and is deliberately excluded because it is
 expected to leave the host.
 
+The excluded card was evaluated in TP, PP, DP and partial-offload designs.
+No layout met the single-endpoint latency, context, vision, cache and speculation
+contract. The measured results and revisit conditions are recorded in
+[Three-GPU evaluation](three-gpu-evaluation.md).
+
 There is no usable NVLink/P2P path between the cards. TP=2 therefore uses NCCL
 through host PCIe. Despite that limitation, splitting the target across the two
 x16 cards is faster: non-speculative decode rose from 34.4 tok/s on one card to
